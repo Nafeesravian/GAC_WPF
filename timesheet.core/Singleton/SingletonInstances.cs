@@ -21,5 +21,18 @@ namespace timesheet.core.Singleton
             instances.Add(newobj);
             return newobj;
         }
+
+        public static object GetTaskService(Type T)
+        {
+            foreach (var obj in instances)
+            {
+                if (obj.GetType() == T) return obj;
+            }
+
+            // create an object of the type
+            var newobj = Activator.CreateInstance(T);
+            instances.Add(newobj);
+            return newobj;
+        }
     }
 }

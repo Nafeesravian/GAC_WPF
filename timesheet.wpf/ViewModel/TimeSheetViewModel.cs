@@ -5,25 +5,33 @@ using System.Text;
 using System.Threading.Tasks;
 using timesheet.core.Base;
 using timesheet.core.Singleton;
-using timesheet.data.Models;
 using timesheet.data.Services;
 
 namespace timesheet.wpf.ViewModel
 {
-    public class EmployeeViewModel : BaseViewModel
+    public class TimeSheetViewModel : BaseViewModel
     {
         private EmployeeService _employeeService;
+        private TaskService _taskService;
 
-        public List<Employee> employees
+        public List<timesheet.data.Models.Employee> employees
         {
             get;set;
         }
 
-        public EmployeeViewModel()
+        public List<timesheet.data.Models.Task> tasks
+        {
+            get; set;
+        }
+
+
+
+        public TimeSheetViewModel()
         {
             _employeeService = (EmployeeService)SingletonInstances.GetEmployeeService(typeof(EmployeeService));
+            _taskService = (TaskService)SingletonInstances.GetTaskService(typeof(TaskService));
 
-            System.Threading.Tasks.Task.Run(new Action(OnLoaded));
+            Task.Run(new Action(OnLoaded));
             
         }
 
@@ -32,10 +40,11 @@ namespace timesheet.wpf.ViewModel
             await Load();
         }
 
-        private async System.Threading.Tasks.Task Load()
+        private async Task Load()
         {
             employees = await this._employeeService.GetEmployees();
-            NotifyPropertyChanged("employees");
+            tasks = await this._taskService.GetTasks();
+            NotifyPropertyChanged("tasks");
             
         }
 

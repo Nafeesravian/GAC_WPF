@@ -10,7 +10,8 @@
     <UserControl.DataContext>
         <local1:EmployeeViewModel/>
     </UserControl.DataContext>
-    <Grid>
+ 
+    <Grid Name="empGrid">
         <Border   BorderBrush="Transparent" BorderThickness="0,0,0,0" >
             <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
@@ -20,10 +21,11 @@
                 <TextBlock Text="Employee List"/>
               
                 
-                <DataGrid Grid.Row="1" ItemsSource="{Binding employees,UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="True"></DataGrid>
+                <DataGrid Grid.Row="1" ItemsSource="{Binding employees,UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="True" SelectionChanged="DataGrid_SelectionChanged"></DataGrid>
             </Grid>
             
         </Border>
            
     </Grid>
+   
 </UserControl>

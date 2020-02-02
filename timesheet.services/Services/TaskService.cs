@@ -11,10 +11,10 @@ using timesheet.data.Models;
 
 namespace timesheet.data.Services
 {
-    public class EmployeeService : IEmployeeService
+    public class TaskService : IEmployeeService, ITaskService
     {
         private string _baseurl = "";
-        public EmployeeService()
+        public TaskService()
         {
             _baseurl = ConfigurationManager.AppSettings["baseUrl"];
         }
@@ -33,6 +33,21 @@ namespace timesheet.data.Services
             }
         }
 
-        
+        public async Task<List<timesheet.data.Models.Task>> GetTasks()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                List<timesheet.data.Models.Task> tasks = new List<timesheet.data.Models.Task>();
+                HttpResponseMessage response = await client.GetAsync(_baseurl + "/task/getall");
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    tasks = JsonConvert.DeserializeObject<List<timesheet.data.Models.Task>>(json);
+                }
+                return tasks;
+            }
+        }
+
+
     }
 }

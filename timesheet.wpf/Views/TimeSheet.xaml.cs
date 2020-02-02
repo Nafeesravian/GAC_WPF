@@ -10,25 +10,22 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace timesheet.wpf.Views
 {
     /// <summary>
-    /// Interaction logic for EmployeeList.xaml
+    /// Interaction logic for TimeSheet.xaml
     /// </summary>
-    public partial class EmployeeList : UserControl
+    public partial class TimeSheet : Window
     {
-        public EmployeeList()
+        public TimeSheet()
         {
             InitializeComponent();
+            //cmbEmp.ItemsSource = typeof(Colors).GetProperties();
+            
         }
 
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var window = new TimeSheet();
-            window.ShowDialog();
-        }
+        
     }
 }
